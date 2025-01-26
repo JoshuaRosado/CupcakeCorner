@@ -16,6 +16,8 @@ struct ContentView: View {
             AsyncImage(url: URL(string: "https://hws.dev/img/logo.png"), scale: 3)
             
             // OPTION 2
+            // Customizing the size of the image with a ProgressView loading animation
+            
             
             AsyncImage(url: URL(string: "https://hws.dev/img/logo.png"), scale: 3) { image in
                 image
@@ -28,7 +30,7 @@ struct ContentView: View {
             
             
             // OPTION 3
-            
+            //Customizing the size of the image with a ProgressView loading animation and THROWING errors
             AsyncImage(url: URL(string: "https://hws.dev/img/logo.png")) { phase in
                 if let image = phase.image {
                     image
