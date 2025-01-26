@@ -8,49 +8,36 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var username = ""
+    @State private var email = ""
+    
     var body: some View {
-        VStack {
-            
-            // OPTION 1
-            
-            AsyncImage(url: URL(string: "https://hws.dev/img/logo.png"), scale: 3)
-            
-            // OPTION 2
-            // Customizing the size of the image with a ProgressView loading animation
-            
-            
-            AsyncImage(url: URL(string: "https://hws.dev/img/logo.png"), scale: 3) { image in
-                image
-                    .resizable()
-                    .scaledToFit()
-            } placeholder: {
-                ProgressView()
+        Form {
+            Section {
+                TextField("username", text: $username)
+                TextField("Email", text: $email)
             }
-                    .frame(width: 200, height: 200)
             
-            
-            // OPTION 3
-            //Customizing the size of the image with a ProgressView loading animation and THROWING errors
-            AsyncImage(url: URL(string: "https://hws.dev/img/logo.png")) { phase in
-                if let image = phase.image {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } else if phase.error != nil {
-                    Text("There was an error loading the image")
-                } else {
-                    ProgressView()
+            Section {
+                Button("Create account"){
+                    print("Creating account")
                 }
+                .foregroundStyle(.green)
             }
-                .frame(width: 200, height: 200)
+//            // Disable button if Field are not filled
+//            .disabled(username.isEmpty || email.isEmpty)
             
-            
-            }
-            
+            // Disable button if Field's characters are less than 5
+            .disabled(disableForm)
         }
-        
+                
     }
-
+    // if username or email are less than 5 character keep the button disabled
+    var disableForm: Bool {
+        username.count < 5 || email.count < 5
+    }
+}
 
 #Preview {
     ContentView()
