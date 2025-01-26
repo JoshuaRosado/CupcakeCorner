@@ -7,35 +7,30 @@
 
 import SwiftUI
 
+@Observable
+class User: Codable {
+    // Fixing the coding key
+    // From "{"_name":"Cataleya","_$observationRegistrar":{}}"
+    // To {"name" : "Cataleya"}
+    // by replacing _name with "name"
+    enum CodingKeys : String, CodingKey {
+        case _name = "name"
+    }
+    var name = "Cataleya"
+}
+
 struct ContentView: View {
     
-    @State private var username = ""
-    @State private var email = ""
-    
     var body: some View {
-        Form {
-            Section {
-                TextField("username", text: $username)
-                TextField("Email", text: $email)
-            }
-            
-            Section {
-                Button("Create account"){
-                    print("Creating account")
-                }
-                .foregroundStyle(.green)
-            }
-//            // Disable button if Field are not filled
-//            .disabled(username.isEmpty || email.isEmpty)
-            
-            // Disable button if Field's characters are less than 5
-            .disabled(disableForm)
-        }
-                
+        Button("Encode Cataleya", action:  encodeCataleya)
     }
-    // if username or email are less than 5 character keep the button disabled
-    var disableForm: Bool {
-        username.count < 5 || email.count < 5
+    
+    func encodeCataleya() {
+        // data instance = try encoding a new User
+        let data = try! JSONEncoder().encode(User())
+        // str instance = displaying the data
+        let str = String(decoding: data, as: UTF8.self)
+        print(str)
     }
 }
 
