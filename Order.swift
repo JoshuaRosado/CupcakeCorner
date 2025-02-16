@@ -17,14 +17,14 @@ import SwiftUI
 
 // @Published = Works with ObservableObject protocol to notify SwiftUI views of changes in shared data, allowing updates to propagate across multiple views or within a hierarchy
 
-
+@Observable
 class Order: ObservableObject {
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
-    @Published var type = 0
-    @Published var quantity = 3
+     var type = 0
+     var quantity = 3
     
-    @Published var specialRequestEnabled = false {
+     var specialRequestEnabled = false {
         // if specialRequestEnabled is not selected or it was unselected
         // extraFrosting and addSprinkles will automatically turn false
         didSet {
@@ -34,6 +34,21 @@ class Order: ObservableObject {
             }
         }
     }
-    @Published var extraFrosting = false
-    @Published var addSprinkles = false
+    var extraFrosting = false
+    var addSprinkles = false
+    
+    var name = ""
+    var streetAddress = ""
+    var city = ""
+    var zip = ""
+    
+    
+    // Validating that all 4 TextField are field
+
+    var hasValidAddress: Bool {
+        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+            return false
+        }
+        return true
+    }
 }
