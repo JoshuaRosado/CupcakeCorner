@@ -18,7 +18,7 @@ import SwiftUI
 // @Published = Works with ObservableObject protocol to notify SwiftUI views of changes in shared data, allowing updates to propagate across multiple views or within a hierarchy
 
 @Observable
-class Order: ObservableObject {
+class Order: ObservableObject, Codable {
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
      var type = 0
