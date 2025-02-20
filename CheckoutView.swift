@@ -10,6 +10,8 @@ import SwiftUI
 struct CheckoutView: View {
     var order: Order
     
+    @State private var showErrorAlert = false
+    @State private var errorMessage = "Something went wrong, check your connection"
     @State private var confirmationMessage = ""
     @State private var showingConfirmation = false
     
@@ -45,6 +47,12 @@ struct CheckoutView: View {
         } message: {
             Text(confirmationMessage)
         }
+        
+        .alert("No connection", isPresented: $showErrorAlert){
+            Button("Try again"){}
+        } message: {
+            Text(errorMessage)
+        }
     }
     
     func placeOrder() async {
@@ -56,7 +64,13 @@ struct CheckoutView: View {
         let url = URL(string: "https://reqres.in/api/cupcakes")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POST"
+        request.httpMethod = "POS"
+        
+        // CHALLENGE 2
+        // Show an informative alert for user if placing an order method Fails
+        if request.httpMethod != "POST"{
+            showErrorAlert = true
+        }
         
         
         do {
