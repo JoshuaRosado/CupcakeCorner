@@ -16,9 +16,28 @@ import SwiftUI
 // @State = Manages simple, locate state variables that belong to a single SwiftUI view
 
 // @Published = Works with ObservableObject protocol to notify SwiftUI views of changes in shared data, allowing updates to propagate across multiple views or within a hierarchy
-
+extension String{
+    var isReallyEmpty: Bool {
+        return self.trimmingCharacters(in: .whitespaces).isEmpty
+        // Trim all the whitespaces if the String has any WhiteSpace
+        // White spaces are not allowed to count as a space.
+    }
+}
 @Observable
 class Order: ObservableObject, Codable {
+    
+    enum CodingKeys: String, CodingKey {
+        case _type = "type"
+        case _quantity = "quantity"
+        case _specialRequestEnabled = "specialRequestEnabled"
+        case _name = "name"
+        case _city = "city"
+        case _zip = "zip"
+        case _streetAddress = "streetAddress"
+        case _extraFrosting = "extraFrosting"
+        case _addSprinkles = "addSprinkles"
+    
+    }
     static let types = ["Vanilla", "Strawberry", "Chocolate", "Rainbow"]
     
      var type = 0
@@ -45,12 +64,17 @@ class Order: ObservableObject, Codable {
     
     // Validating that all 4 TextField are field
 
+    // CHALLENGE 1
+    // VALIDATE the address making sure that the String IS NOT a pure EMPTY SPACE
+    
     var hasValidAddress: Bool {
-        if name.isEmpty || streetAddress.isEmpty || city.isEmpty || zip.isEmpty {
+        if name.isReallyEmpty || streetAddress.isReallyEmpty || city.isReallyEmpty || zip.isReallyEmpty {
             return false
         }
         return true
     }
+    
+    // ================================================================================
     
     var cost: Decimal {
         // $2 per cake
