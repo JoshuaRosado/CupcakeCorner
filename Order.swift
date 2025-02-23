@@ -56,6 +56,8 @@ class Order: ObservableObject, Codable {
     var extraFrosting = false
     var addSprinkles = false
     
+
+    
     var name = ""
     var streetAddress = ""
     var city = ""
@@ -69,10 +71,11 @@ class Order: ObservableObject, Codable {
     
     var hasValidAddress: Bool {
         if name.isReallyEmpty || streetAddress.isReallyEmpty || city.isReallyEmpty || zip.isReallyEmpty {
+            
             return false
         }
         return true
-    }
+}
     
     // ================================================================================
     

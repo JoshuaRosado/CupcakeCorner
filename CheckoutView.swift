@@ -64,7 +64,7 @@ struct CheckoutView: View {
         let url = URL(string: "https://reqres.in/api/cupcakes")!
         var request = URLRequest(url: url)
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.httpMethod = "POS"
+        request.httpMethod = "POST"
         
         // CHALLENGE 2
         // Show an informative alert for user if placing an order method Fails
